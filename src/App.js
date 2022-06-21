@@ -1,4 +1,5 @@
 import { useState } from "react";
+import TodoItem from "./TodoItem";
 
 let id = 0;
 function App() {
@@ -21,36 +22,33 @@ function App() {
 
   function handleSubmit(e) {
     e.preventDefault();
-  }
 
-  function addTodo() {
-    setTodos(function (prevTodos) {
-      let newTodo = { id: ++id, title: title, desc: description };
-      let updated = [...prevTodos, newTodo];
-      return updated;
-    });
+    if (editMode) {
+      const updatedTodos = todos.map((todo) => {
+        if (todo.id === editId) {
+          return {
+            id: editId,
+            title: title,
+            desc: description,
+          };
+        }
 
-    setTitle("");
-    setDescription("");
-  }
-
-  function updateTodo() {
-    const updatedTodos = todos.map((todo) => {
-      if (todo.id === editId) {
-        return {
-          id: editId,
-          title: title,
-          desc: description,
-        };
-      }
-
-      return todo;
-    });
-    setTodos([...updatedTodos]);
+        return todo;
+      });
+      setTodos([...updatedTodos]);
+      setEditMode(false);
+      setEditId(null);
+    } else {
+      id++;
+      setTodos((prevTodos) => {
+        let newTodo = { id: id, title: title, desc: description };
+        let updated = [...prevTodos, newTodo];
+        return updated;
+      });
+    }
 
     setTitle("");
     setDescription("");
-    setEditMode(false);
   }
 
   function handleEdit(editId) {
@@ -63,6 +61,19 @@ function App() {
     console.log(todoToEdit);
     setTitle(todoToEdit.title);
     setDescription(todoToEdit.desc);
+  }
+
+  function removeTodo(id) {
+    const newArr = todos.filter((todo) => {
+      if (todo.id !== id) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+
+    setTodos([...newArr]);
+    // setTodos(newArr);
   }
 
   return (
@@ -90,27 +101,20 @@ function App() {
             />
           </div>
 
-          {editMode ? (
-            <button onClick={updateTodo}>Update</button>
-          ) : (
-            <button onClick={addTodo}>Add</button>
-          )}
+          {editMode ? <button>Update</button> : <button>Add</button>}
         </form>
       </div>
       <div className="list">
         <h2>List of Todos</h2>
         <ul>
           {todos.map((todo, index) => (
-            <li key={index}>
-              <div className="item-title">
-                <h5>
-                  {index + 1}. {todo.title}
-                </h5>
-                <button onClick={() => handleEdit(todo.id)}>Edit</button>
-                <button>delete</button>
-              </div>
-              <p>{todo.desc}</p>
-            </li>
+            <TodoItem
+              key={todo.id}
+              numbering={index + 1}
+              handleEdit={handleEdit}
+              removeTodo={removeTodo}
+              todo={todo}
+            />
           ))}
         </ul>
       </div>
