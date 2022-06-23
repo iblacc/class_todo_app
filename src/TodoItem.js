@@ -4,19 +4,25 @@ const TodoItem = (props) => {
   return (
     <li>
       <div className="item-title">
-        <h5>
+        <h3>
           {props.numbering}. {props.todo.title}
-        </h5>
+        </h3>
         <button
+          id="editButton"
           onClick={function () {
             props.handleEdit(props.todo.id);
           }}
         >
           Edit
         </button>
-        <button onClick={() => props.removeTodo(props.todo.id)}>delete</button>
+        <button
+          id="deleteButton"
+          onClick={() => props.removeTodo(props.todo.id)}
+        >
+          Delete
+        </button>
       </div>
-      <p>{props.todo.desc}</p>
+      <p id="toDoDesc">{props.todo.desc}</p>
     </li>
   );
 };
