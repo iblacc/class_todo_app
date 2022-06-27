@@ -17,7 +17,8 @@ const TodoItem = (props) => {
         </button>
         <button
           id="deleteButton"
-          onClick={() => props.removeTodo(props.todo.id)}
+          onClick = {()=> props.displayModal()}
+          // onClick={() => props.removeTodo(props.todo.id)}
         >
           Delete
         </button>

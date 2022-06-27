@@ -1,5 +1,6 @@
 import { useState } from "react";
 import TodoItem from "./TodoItem";
+import ModalContainer from "./modalContain";
 
 let id = 0;
 function App() {
@@ -8,6 +9,7 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [editId, setEditId] = useState(null);
+  const [display, changeDisplay] = useState(false);
 
   function handleChange(e) {
     let name = e.target.name;
@@ -76,6 +78,10 @@ function App() {
     // setTodos(newArr);
   }
 
+  function displayModal() {
+    changeDisplay(!display);
+  }
+
   return (
     <div className="container">
       <div className="form">
@@ -113,11 +119,21 @@ function App() {
               numbering={index + 1}
               handleEdit={handleEdit}
               removeTodo={removeTodo}
+              displayModal={displayModal}
               todo={todo}
             />
           ))}
         </ul>
       </div>
+          
+      {/* {todos.map((todo) => (
+        <ModalContainer 
+        key={todo.id}
+        displayModal={displayModal}
+        />
+      ))} */}
+
+      {display ? <ModalContainer/>  : ""}
     </div>
   );
 }
