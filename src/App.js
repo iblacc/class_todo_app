@@ -1,6 +1,6 @@
 import { useState } from "react";
 import TodoItem from "./TodoItem";
-import ModalContainer from "./modalContain";
+import ModalContainer from "./modalContainer";
 
 let id = 0;
 function App() {
@@ -80,6 +80,11 @@ function App() {
 
   function displayModal() {
     changeDisplay(!display);
+    if (display) {
+      console.log("display is true");
+    } else {
+      console.log("display is false");
+    }
   }
 
   return (
@@ -125,15 +130,17 @@ function App() {
           ))}
         </ul>
       </div>
-          
-      {/* {todos.map((todo) => (
-        <ModalContainer 
-        key={todo.id}
-        displayModal={displayModal}
-        />
-      ))} */}
 
-      {display ? <ModalContainer/>  : ""}
+      {todos.map((todo) =>
+        displayModal ? (
+          <ModalContainer
+            key={todo.id}
+            todo={todo}
+            displayModal={displayModal}
+            removeTodo={removeTodo}
+          />
+        ) : null
+      )}
     </div>
   );
 }
