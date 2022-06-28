@@ -2,14 +2,14 @@ import React from "react";
 
 const ModalContainer = (props) => {
   return (
-    <div class="modalContainer">
-      <div class="modal">
-        <h3 class="modal-header">Delete this item?</h3>
-        <div class="modalBtns">
-          <button id="yesBtn" onClick={() => props.removeTodo(props.todo.id)}>
+    <div className="modalContainer">
+      <div className="modal">
+        <h3 className="modal-header">Delete this item {props.number}?</h3>
+        <div className="modalBtns">
+          <button id="yesBtn" onClick={() => props.removeTodo(props.id)}>
             YES
           </button>
-          <button id="noBtn" onClick={() => props.displayModal()}>
+          <button id="noBtn" onClick={() => props.modalControl(false)}>
             NO
           </button>
         </div>

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import TodoItem from "./TodoItem";
-import ModalContainer from "./modalContainer";
 
 let id = 0;
 function App() {
@@ -124,14 +123,13 @@ function App() {
               numbering={index + 1}
               handleEdit={handleEdit}
               removeTodo={removeTodo}
-              displayModal={displayModal}
               todo={todo}
             />
           ))}
         </ul>
       </div>
 
-      {todos.map((todo) =>
+      {/* {todos.map((todo) =>
         displayModal ? (
           <ModalContainer
             key={todo.id}
@@ -140,7 +138,7 @@ function App() {
             removeTodo={removeTodo}
           />
         ) : null
-      )}
+      )} */}
     </div>
   );
 }
