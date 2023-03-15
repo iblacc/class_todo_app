@@ -8,16 +8,18 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [editId, setEditId] = useState(null);
-  const [display, changeDisplay] = useState(false);
 
   function handleChange(e) {
     let name = e.target.name;
     let value = e.target.value;
-
-    if (name === "title") {
-      setTitle(value);
+    if (name !== "" && value !== "") {
+      if (name === "title") {
+        setTitle(value);
+      } else {
+        setDescription(value);
+      }
     } else {
-      setDescription(value);
+      console.log("input title and description");
     }
   }
 
@@ -77,15 +79,6 @@ function App() {
     // setTodos(newArr);
   }
 
-  function displayModal() {
-    changeDisplay(!display);
-    if (display) {
-      console.log("display is true");
-    } else {
-      console.log("display is false");
-    }
-  }
-
   return (
     <div className="container">
       <div className="form">
@@ -128,17 +121,6 @@ function App() {
           ))}
         </ul>
       </div>
-
-      {/* {todos.map((todo) =>
-        displayModal ? (
-          <ModalContainer
-            key={todo.id}
-            todo={todo}
-            displayModal={displayModal}
-            removeTodo={removeTodo}
-          />
-        ) : null
-      )} */}
     </div>
   );
 }
